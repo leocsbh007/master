@@ -57,16 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define DOUT_LED1_Pin GPIO_PIN_0
-#define DOUT_LED1_GPIO_Port GPIOB
+#define DOUT_LED1_Pin GPIO_PIN_13
+#define DOUT_LED1_GPIO_Port GPIOC
 #define DIN_BOTAO1_Pin GPIO_PIN_1
 #define DIN_BOTAO1_GPIO_Port GPIOB
 #define DIN_BOTAO1_EXTI_IRQn EXTI1_IRQn
 #define DOUT_LED2_Pin GPIO_PIN_3
 #define DOUT_LED2_GPIO_Port GPIOB
-#define DIN_BOTAO1B8_Pin GPIO_PIN_8
-#define DIN_BOTAO1B8_GPIO_Port GPIOB
-#define DIN_BOTAO1B8_EXTI_IRQn EXTI9_5_IRQn
+#define DIN_BOTAO2_Pin GPIO_PIN_8
+#define DIN_BOTAO2_GPIO_Port GPIOB
+#define DIN_BOTAO2_EXTI_IRQn EXTI9_5_IRQn
 
 /* USER CODE BEGIN Private defines */
 

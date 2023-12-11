@@ -151,25 +151,36 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, DOUT_LED1_Pin|DOUT_LED2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(DOUT_LED1_GPIO_Port, DOUT_LED1_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : DOUT_LED1_Pin DOUT_LED2_Pin */
-  GPIO_InitStruct.Pin = DOUT_LED1_Pin|DOUT_LED2_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DOUT_LED2_GPIO_Port, DOUT_LED2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : DOUT_LED1_Pin */
+  GPIO_InitStruct.Pin = DOUT_LED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(DOUT_LED1_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : DIN_BOTAO1_Pin DIN_BOTAO1B8_Pin */
-  GPIO_InitStruct.Pin = DIN_BOTAO1_Pin|DIN_BOTAO1B8_Pin;
+  /*Configure GPIO pins : DIN_BOTAO1_Pin DIN_BOTAO2_Pin */
+  GPIO_InitStruct.Pin = DIN_BOTAO1_Pin|DIN_BOTAO2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DOUT_LED2_Pin */
+  GPIO_InitStruct.Pin = DOUT_LED2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DOUT_LED2_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI1_IRQn, 3, 0);
@@ -183,6 +194,23 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	if (GPIO_Pin == DIN_BOTAO1_Pin)
+	{
+		HAL_GPIO_WritePin(DOUT_LED1_GPIO_Port, DOUT_LED1_Pin, GPIO_PIN_RESET);
+		HAL_Delay(3000);
+		HAL_GPIO_WritePin(DOUT_LED1_GPIO_Port, DOUT_LED1_Pin, GPIO_PIN_SET);
+	}
+	if (GPIO_Pin == DIN_BOTAO2_Pin)
+	{
+		HAL_GPIO_WritePin(DOUT_LED2_GPIO_Port, DOUT_LED2_Pin, GPIO_PIN_SET);
+		HAL_Delay(6000);
+		HAL_GPIO_WritePin(DOUT_LED2_GPIO_Port, DOUT_LED2_Pin, GPIO_PIN_RESET);
+
+	}
+}
 
 /* USER CODE END 4 */
 
